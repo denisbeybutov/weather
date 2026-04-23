@@ -17,7 +17,13 @@ export const capitalazeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// export const 
+export const cToF = (celsius) => {
+    return celsius * 9 / 5 + 32;
+}
+
+export const fToC = (fahrenheit) => {
+    return (fahrenheit - 32) * 5 / 9;
+}
 
 export const resetWeatherContent = (city, weather) => {
     localStorage.setItem('city', JSON.stringify(city));

@@ -1,6 +1,6 @@
 import { getWeatherData } from "./api.js";
 import { handleWeatherByGeolocation } from "./geolocation.js";
-import { resetWeatherContent } from "./helper.js";
+import { fToC, cToF, resetWeatherContent } from "./helper.js";
 
 export const createHeader = (city) => {
     const header = document.createElement('header');
@@ -67,6 +67,35 @@ export const createHeader = (city) => {
             resetWeatherContent(weather.name, weather);
         } catch (error){
             console.log(error);
+        }
+    })
+
+    unitsC.addEventListener('click', () => {
+        if(unitsC.classList.contains('unit-current')) {
+            return;
+        }
+        else {
+            unitsC.classList.add('unit-current');
+            unitsF.classList.remove('unit-current');
+            document.querySelector('.weather__units').textContent = 'o';
+
+            const temperature = document.querySelector('.weather__temperature');
+            const convertedTemp = fToC(+temperature.textContent);
+            temperature.textContent = Math.round(convertedTemp);
+        }
+    })
+    unitsF.addEventListener('click', () => {
+        if(unitsF.classList.contains('unit-current')) {
+            return;
+        }
+        else {
+            unitsF.classList.add('unit-current');
+            unitsC.classList.remove('unit-current');
+            document.querySelector('.weather__units').textContent = 'f';
+
+            const temperature = document.querySelector('.weather__temperature');
+            const convertedTemp = cToF(+temperature.textContent);
+            temperature.textContent = Math.round(convertedTemp);
         }
     })
 
