@@ -66,7 +66,7 @@ export const createHeader = (city) => {
 
             resetWeatherContent(weather.name, weather);
         } catch (error){
-            console.log(error);
+            
         }
     })
 
