@@ -1,3 +1,6 @@
+import { windDirection } from "./helper.js";
+import {capitalazeFirstLetter} from './helper.js'
+
 export const createContent = (data) => {
     const main = document.createElement('main');
     const section = document.createElement('section');
@@ -29,7 +32,7 @@ export const createContent = (data) => {
     weatherInfoClouds.classList.add('weather-info__item');
 
     temperature.textContent = Math.floor(data.main.temp);
-    description.textContent = data.weather[0].description;
+    description.textContent = capitalazeFirstLetter(data.weather[0].description);
     iconBloc.src = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
     units.textContent = 'o';
 
@@ -49,7 +52,20 @@ export const createContent = (data) => {
 
     weatherInfoWind.append(
         createWeatherItemTitle('Ветер'),
-        createWeatherItemContent(data.wind.speed + 'м/с')
+        createWeatherItemContent(data.wind.speed + ' м/с, ' + windDirection(data.wind.deg))
+    )
+
+    weatherInfoPressure.append(
+        createWeatherItemTitle('Давление'),
+        createWeatherItemContent(data.main.pressure + 'мм рт. ст.')
+    )
+    weatherInfoHumidity.append(
+        createWeatherItemTitle('Влажность'),
+        createWeatherItemContent(data.main.humidity + '%')
+    )
+    weatherInfoClouds.append(
+        createWeatherItemTitle('Облачность'),
+        createWeatherItemContent(data.clouds.all + '%')
     )
 
     main.append(section);
